@@ -1,7 +1,5 @@
-###
-folder_path<-"/Users/midicole/Library/CloudStorage/OneDrive-TheUniversityofMelbourne/Documents/UoM/PRS/PGSCatalog/metadata/breast carcinoma/"
-  
-  
+### The function is used to extract the cohorts used in PRS based on the trait 
+### folder downloaded using automatic_download_from_PGScatalog.R
 pgs_cohort_extract<-function(folder_path,sheet_name,dest_path){
   ### folder_path: the path of folder containing all metadata files with quotation marks
   ### sheet_name: the name of sheet with quotation marks, options can be either 
@@ -55,10 +53,3 @@ pgs_cohort_extract<-function(folder_path,sheet_name,dest_path){
   output_df<-as.data.frame(padded_vectors,col.names = sub("_.*","",basename(all_files)))
   write.csv(output_df,paste(sub("/$","",dest_path),paste(basename(folder_path),sheet_name,"cohorts",".csv",sep="_"),sep="/"))
 }
-
-pgs_cohort_extract("/Users/midicole/Library/CloudStorage/OneDrive-TheUniversityofMelbourne/Documents/UoM/PRS/PGSCatalog/metadata/breast carcinoma",
-                             "Evaluation Sample Sets",
-          "/Users/midicole/Library/CloudStorage/OneDrive-TheUniversityofMelbourne/Documents/UoM/PRS/PGSCatalog/")
-pgs_cohort_extract("/Users/midicole/Library/CloudStorage/OneDrive-TheUniversityofMelbourne/Documents/UoM/PRS/PGSCatalog/metadata/breast carcinoma",
-                   "Evaluation Sample Sets",
-                   "/Users/midicole/Library/CloudStorage/OneDrive-TheUniversityofMelbourne/Documents/UoM/PRS/PGSCatalog/")
