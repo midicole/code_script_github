@@ -2,7 +2,7 @@
 folder_path<-"/Users/midicole/Library/CloudStorage/OneDrive-TheUniversityofMelbourne/Documents/UoM/PRS/PGSCatalog/metadata/breast carcinoma/"
   
   
-pgs_cohort_extract<-function(folder_path,sheet_name){
+pgs_cohort_extract<-function(folder_path,sheet_name,dest_path){
   ### folder_path: the path of folder containing all metadata files with quotation marks
   ### sheet_name: the name of sheet with quotation marks, options can be either 
   ### "Score Development Samples" or "Evaluation Sample Sets"
@@ -42,7 +42,7 @@ pgs_cohort_extract<-function(folder_path,sheet_name){
                names(check_list[check_list==FALSE]),
                ", contact author to update the function!"))
   
-  ### 
+  ### extract cohort, merge and keep only unique elements
   for(i in 1:length(all_files)){
     temp_cohort[[sub("_.*","",basename(all_files)[i])]]<-unique(unlist(strsplit(paste(unlist(temp_data[[i]][,"Cohort(s)"]),collapse = "|"),"\\|")))
   }
@@ -51,8 +51,14 @@ pgs_cohort_extract<-function(folder_path,sheet_name){
     length(x)<-max_len
     return(x)
   })
+  ### output data frame which is padded
   output_df<-as.data.frame(padded_vectors,col.names = sub("_.*","",basename(all_files)))
-  return(output_df)
+  write.csv(output_df,paste(sub("/$","",dest_path),paste(basename(folder_path),sheet_name,"cohorts",".csv",sep="_"),sep="/"))
 }
 
-
+pgs_cohort_extract("/Users/midicole/Library/CloudStorage/OneDrive-TheUniversityofMelbourne/Documents/UoM/PRS/PGSCatalog/metadata/breast carcinoma",
+                             "Evaluation Sample Sets",
+          "/Users/midicole/Library/CloudStorage/OneDrive-TheUniversityofMelbourne/Documents/UoM/PRS/PGSCatalog/")
+pgs_cohort_extract("/Users/midicole/Library/CloudStorage/OneDrive-TheUniversityofMelbourne/Documents/UoM/PRS/PGSCatalog/metadata/breast carcinoma",
+                   "Evaluation Sample Sets",
+                   "/Users/midicole/Library/CloudStorage/OneDrive-TheUniversityofMelbourne/Documents/UoM/PRS/PGSCatalog/")
