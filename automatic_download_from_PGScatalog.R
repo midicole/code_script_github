@@ -24,7 +24,7 @@ autodown_pgsc<-function(summary_file,dest_path){
                              "_metadata.xlsx")
   
   ### download start
-  dest_dir<-paste(sub("/$","",dest_path),paste(selected_trait,collapse = " and "),sep="/")
+  dest_dir<-paste(sub("/$","",dest_path),paste(selected_trait,collapse = " and "),sep="/") # set directory for destination
   if(!dir.exists(dest_dir)){### check folder and create one if there is no such folder
     dir.create(dest_dir)
     cat("Directory created:",dest_dir,"\n")
